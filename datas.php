@@ -46,8 +46,23 @@
                     $msg = 'Data excluída com sucesso.';
                     include('components/msg_success.php');
                 } else {
-                    $msg = 'Ocorreu um erro ao tentar excluir da data';
+                    $msg = 'Ocorreu um erro ao tentar excluir da data.';
                     include('components/msg_success.php');
+                }
+            }
+
+            $ano = date('Y');
+            if (isset($_GET['ano'])) {
+                if (!empty($_GET['ano'])) {
+                    if (strlen($_GET['ano']) == 4) {
+                        $ano = $_GET['ano'];
+                    } else {
+                        $msg = 'Ano inválido.';
+                        include('components/msg_fail.php');
+                    }
+                } else {
+                    $msg = 'Selecione uma data.';
+                    include('components/msg_fail.php');
                 }
             }
             ?>
@@ -71,7 +86,15 @@
             <!-- </div> -->
 
             <div class="col-12 col-lg-6 px-0 px-lg-4 my-2">
-                <div class="overflow-auto" style="max-height: 400px;">
+                <form class="col-12 d-flex flex-wrap gap-2 justify-content-center align-items-end border border-2 rounded p-3 mb-2" action="" method="get">
+                    <div>
+                        <label>Ano:</label>
+                        <input class="form-control w-auto" type="number" name="ano" value="<?= $ano ?>" required>
+                    </div>
+                    <button class="btn btn-outline-info" type="submit">Selecionar</button>
+                </form>
+                
+                <div class="overflow-auto" style="max-height: 300px;">
                     <table class="table table-light border border-2 shadow">
                         <thead>
                             <tr>
@@ -83,21 +106,23 @@
                         </thead>
                         <tbody>
                             <?php
-                            foreach (allHolidays(isset($_GET['date']) ? $_GET['date'] : date('Y')) as $key => $holiday) {
-                                ?>
-                                <tr>
-                                    <th><?= ($key + 1) ?></th>
-                                    <td><?= !empty($holiday['description_date']) ? $holiday['description_date'] : '-' ?></td>
-                                    <td><?= date('d/m/Y', strtotime($holiday['holidayDate'])) ?></td>
-                                    <td>
-                                        <form action='' method='post'>
-                                            <input type='hidden' name='id' value='<?= $holiday["id"] ?>'>
-                                            <button class='btn btn-outline-danger' type='submit' name="excluir">Excluir</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
+                            // if (isset($_GET['date']) && !empty($_GET['date'])) {
+                                foreach (allHolidays($ano) as $key => $holiday) {
+                                    ?>
+                                    <tr>
+                                        <th><?= ($key + 1) ?></th>
+                                        <td><?= !empty($holiday['description_date']) ? $holiday['description_date'] : '-' ?></td>
+                                        <td><?= date('d/m/Y', strtotime($holiday['holidayDate'])) ?></td>
+                                        <td>
+                                            <form action='' method='post'>
+                                                <input type='hidden' name='id' value='<?= $holiday["id"] ?>'>
+                                                <button class='btn btn-outline-danger' type='submit' name="excluir">Excluir</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            // }
                             ?>
                         </tbody>
                     </table>
@@ -108,14 +133,6 @@
         <hr class="my-5">
 
         <div class="col-12">
-            <form class="col-12 d-flex flex-wrap gap-2 justify-content-center align-items-end border border-2 rounded p-4 mb-4" action="" method="get">
-                <div>
-                    <label>Ano:</label>
-                    <input class="form-control w-auto" type="number" name="date" value="<?= $_GET['date'] ?? date('Y') ?>">
-                </div>
-                <button class="btn btn-outline-info" type="submit">Selecionar</button>
-            </form>
-
             <div class="col-12">
                 <h3 class="title text-center my-2">LEGENDA DO CALENDÁRIO</h3>
             </div>
@@ -125,8 +142,6 @@
             include('components/legenda.php');
 
             require('models/calendario.php');
-
-            $ano = isset($_GET['date']) ? $_GET['date'] : date('Y');
 
             echo '<div class="d-flex flex-wrap justify-content-around bg-light border border-1 rounded my-4">';
             echo '<h3 class="col-12 text-center my-4">CALENDÁRIO DE ' . $ano . '</h3>';
