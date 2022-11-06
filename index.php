@@ -116,8 +116,7 @@
 
                     $hoursWeek += $minutesWeek * 0.01;
 
-                    $hoursStage = 0;
-                    // $minutesStage = 0;
+                    $countDays = $hoursStage = $minutesStage = 0;
 
                     $dateEndStage = '';
 
@@ -141,8 +140,13 @@
                             if (!in_array($dt->format('d/m/Y'), $getHolidays) && in_array($dt->format('N'), $days)) {
                                 foreach ($weekDays as $key => $weekDay) {
                                     if (($key + 1) == $dt->format('N')) {
+                                        $countDays++;
                                         $hoursStage += $hoursDays[$weekDay];
-                                        // $minutesStage += $minutesDays[$weekDay];
+                                        $minutesStage += $minutesDays[$weekDay];
+                                        while ($minutesStage >= 60) {
+                                            $minutesStage -= 60;
+                                            $hoursStage++;
+                                        }
                                     }
                                 }
 
@@ -150,6 +154,8 @@
                                 if ($hoursStage >= $hoursStageCourse) break;
                             }
                         }
+
+                        $hoursStage += $minutesStage * 0.01;
                     } else {
                         $msg = 'Informe as hora(s)/minutos do(s) dia(s) de estágio.';
                         include('components/msg_fail.php');
@@ -174,20 +180,24 @@
             <h3 class="title text-center my-2">RESULTADO</h3>
         </div>
 
-        <div class="col-12 d-flex flex-wrap justify-content-center mb-4">
-            <div class="mx-2">
+        <div class="col-12 d-flex flex-wrap gap-2 justify-content-center mb-4">
+            <div>
+                <label class="form-label">Total de dias de estágio:</label>
+                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($countDays) ? $countDays .' dia(s)' : ''; ?>" disabled>
+            </div>
+            <div>
                 <label class="form-label">Horas semanais de estágio:</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= $hoursWeek ?? ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($hoursWeek) ? $hoursWeek .' hora(s)' : ''; ?>" disabled>
             </div>
-            <div class="mx-2">
+            <div>
                 <label class="form-label">Horas do estágio (<?= $hoursStageCourse ?? ''; ?>):</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= $hoursStage ?? ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($hoursStage) ? $hoursStage  .' hora(s)' : ''; ?>" disabled>
             </div>
-            <div class="mx-2">
+            <div>
                 <label class="form-label">Horas do estágio x 2 (<?= isset($hoursStageCourse) ? $hoursStageCourse * 2 : ''; ?>):</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= isset($hoursStage) ? $hoursStage * 2 : ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="dias" value="<?= isset($hoursStage) ? $hoursStage * 2 .' hora(s)' : ''; ?>" disabled>
             </div>
-            <div class="mx-2">
+            <div>
                 <label class="form-label">Data final do estágio:</label>
                 <input class="form-control w-auto" type="text" name="dias" value="<?= $dateEndStage ?? ''; ?>" disabled>
             </div>
