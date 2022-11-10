@@ -1,15 +1,36 @@
 <?php
 
+$_SESSION['banco'] = 'sqlite';
+
 function connection()
-{ // Faz a conexão com o banco de dados
-    $dbtype = 'mysql';
-    $dbname = 'sg_estagio';
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
+{ // Faz a conexão com o banco de dados    
+    switch ($_SESSION['banco']) {
+        case 'mysql':
+            $dbtype = 'mysql';
+            $dbname = 'sg_estagio';
+            $host = 'localhost';
+            $user = 'root';
+            $password = '';
+            break;
+        case 'sqlite':
+            $dbtype = 'sqlite';
+            $dbname = 'sg_estagio';
+    }
 
     try {
-        $connection = new PDO("$dbtype:dbname=$dbname;host=$host", "$user", "$password");
+        if ($_SESSION['banco'] == 'mysql') {
+            $connection = new PDO("$dbtype:dbname=$dbname;host=$host", "$user", "$password");
+        }
+        elseif ($_SESSION['banco'] == 'sqlite') {
+            $connection = new PDO("$dbtype:banco.$dbname");
+            $connection->exec(
+                "CREATE TABLE IF NOT EXISTS feriados (
+                id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                description_date TEXT, 
+                holidayDate DATE NOT NULL
+                )"
+            );
+        }
     } catch (PDOException $erro) {
         echo "Erro de conexão ao banco de dados! <br><br>" . $erro->getMessage();
         die();
@@ -68,7 +89,7 @@ function storeHoliday($description, $date)
         echo "Erro ao tentar cadastrar a data no banco de dados! <br><br>" . $erro->getMessage();
         die();
     }
-    if ($holidayDate->rowCount() > 0)
+    if ($holidayDate->fetchColumn() > 0)
         return false;
 
     try {

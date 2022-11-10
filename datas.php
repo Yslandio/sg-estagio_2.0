@@ -32,7 +32,7 @@
                         include('components/msg_success.php');
                     } else {
                         $msg = 'A data já está cadastrada.';
-                        include('components/msg_success.php');
+                        include('components/msg_fail.php');
                     }
                 } else {
                     $msg = 'Selecione uma data a ser cadastrada.';
@@ -43,7 +43,7 @@
             if (isset($_POST['excluir'])) {
                 if (!empty($_POST['id'])) {
                     destroyHoliday($_POST['id']);
-                    $msg = 'Data excluída com sucesso.';
+                    $msg = 'Data excluída.';
                     include('components/msg_success.php');
                 } else {
                     $msg = 'Ocorreu um erro ao tentar excluir da data.';
@@ -153,6 +153,11 @@
         </div>
     </div>
 
+    <!-- Bootstrap - JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <!-- Scripts -->
+    <script src="assets/js/alerts.js"></script>
 </body>
 </html>

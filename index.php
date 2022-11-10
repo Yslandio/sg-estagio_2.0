@@ -156,6 +156,9 @@
                         }
 
                         $hoursStage += $minutesStage * 0.01;
+
+                        $msg = 'Cálculo de estágio realizado.';
+                        include('components/msg_success.php');
                     } else {
                         $msg = 'Informe as hora(s)/minutos do(s) dia(s) de estágio.';
                         include('components/msg_fail.php');
@@ -165,7 +168,7 @@
                     include('components/msg_fail.php');
                 }
             } else {
-                $msg = 'A data de início de estágio não pode ser depois da data de término de semestre.';
+                $msg = 'A data de "Início de estágio" não pode ser igual ou posterior à data de "Fim do semestre".';
                 include('components/msg_fail.php');
             }
         } elseif (isset($_GET['submit'])) {
@@ -243,7 +246,12 @@
     </div>
     </div>
 
+    <!-- Bootstrap - JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="assets/js/script.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <!-- Scripts -->
+    <script src="assets/js/week_days.js"></script>
+    <script src="assets/js/alerts.js"></script>
 </body>
 </html>
