@@ -87,7 +87,7 @@
         <?php
         if (isset($_GET['submit']) && !empty($_GET['hours_stage_course']) && !empty($_GET['date_start_stage']) && !empty($_GET['date_end_semester'])) {
             if (strtotime($_GET['date_start_stage']) < strtotime($_GET['date_end_semester'])) {
-                if (!empty($_GET['monday']) || !empty($_GET['tuesday']) || !empty($_GET['wednesday']) || !empty($_GET['thursday']) || !empty($_GET['friday'])) {
+                if (!empty($_GET['monday']) || !empty($_GET['tuesday']) || !empty($_GET['wednesday']) || !empty($_GET['thursday']) || !empty($_GET['friday']) || !empty($_GET['saturday']) || !empty($_GET['sunday'])) {
                     $hoursStageCourse = $_GET['hours_stage_course'];
 
                     $minutesDays = $hoursDays = $days = [
