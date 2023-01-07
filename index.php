@@ -186,23 +186,23 @@
         <div class="col-12 d-flex flex-wrap gap-2 justify-content-center mb-4">
             <div>
                 <label class="form-label">Total de dias de estágio:</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($countDays) ? $countDays .' dia(s)' : ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="quantidade_dias_estagio" value="<?= !empty($countDays) ? $countDays .' dia(s)' : ''; ?>" disabled>
             </div>
             <div>
                 <label class="form-label">Horas semanais de estágio:</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($hoursWeek) ? $hoursWeek .' hora(s)' : ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="quantidade_horas_semanais" value="<?= !empty($hoursWeek) ? $hoursWeek .' hora(s)' : ''; ?>" disabled>
             </div>
             <div>
                 <label class="form-label">Horas do estágio (<?= $hoursStageCourse ?? ''; ?>):</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= !empty($hoursStage) ? $hoursStage  .' hora(s)' : ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="quantidade_horas_estagio" value="<?= !empty($hoursStage) ? $hoursStage  .' hora(s)' : ''; ?>" disabled>
             </div>
             <div>
                 <label class="form-label">Horas do estágio x 2 (<?= isset($hoursStageCourse) ? $hoursStageCourse * 2 : ''; ?>):</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= isset($hoursStage) ? $hoursStage * 2 .' hora(s)' : ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="quantidade_horas_estagio_dobrado" value="<?= isset($hoursStage) ? $hoursStage * 2 .' hora(s)' : ''; ?>" disabled>
             </div>
             <div>
                 <label class="form-label">Data final do estágio:</label>
-                <input class="form-control w-auto" type="text" name="dias" value="<?= $dateEndStage ?? ''; ?>" disabled>
+                <input class="form-control w-auto" type="text" name="data_final_estagio" value="<?= $dateEndStage ?? ''; ?>" disabled>
             </div>
         </div>
 

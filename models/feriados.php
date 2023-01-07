@@ -1,6 +1,6 @@
 <?php
 
-$_SESSION['banco'] = 'sqlite';
+$_SESSION['banco'] = 'mysql';
 
 function connection()
 { // Faz a conexão com o banco de dados    
